@@ -10,6 +10,6 @@ public class UIStyle : ScriptableObject {
     [field: SerializeField] public Color Dark { get; private set; }
     [field: SerializeField] public Color Light { get; private set; }
     [field: SerializeField] public Color MainColor { get; private set; }
-    [field: SerializeField] public Color SecondaryColor { get; private set; }
+    [field: SerializeField] public Color BackgroundColor { get; private set; }
     [field: SerializeField] public Color Transparent { get; private set; }
 }

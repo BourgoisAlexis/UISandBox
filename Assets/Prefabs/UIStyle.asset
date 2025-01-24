@@ -15,8 +15,8 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 21300000, guid: 97cbc812a0b2f2248a487b281db92be1, type: 3}
   <ImageType>k__BackingField: 1
   <Font>k__BackingField: {fileID: 11400000, guid: 24d10433c4d5b1d49bbc0c3c7b0a0235, type: 2}
-  <Dark>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <Dark>k__BackingField: {r: 0.027774997, g: 0.09539493, b: 0.17735851, a: 1}
   <Light>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
-  <MainColor>k__BackingField: {r: 0, g: 0.32312155, b: 1, a: 1}
-  <SecondaryColor>k__BackingField: {r: 1, g: 0.06915825, b: 0, a: 1}
+  <MainColor>k__BackingField: {r: 0.1415093, g: 0.5278797, b: 1, a: 1}
+  <BackgroundColor>k__BackingField: {r: 0.38909933, g: 0.57314306, b: 0.79622644, a: 1}
   <Transparent>k__BackingField: {r: 0, g: 0, b: 0, a: 0}

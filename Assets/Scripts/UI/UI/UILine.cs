@@ -5,16 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UILine : UIElement {
-    private const float ANIM_DURATION = 0.15f;
     private const float RATIO = 0.5f;
     private const float THICKNESS = 10f;
-
-    private RectTransform _rectTransform;
 
 
     public async Task Init(Vector2 origin, Vector2 destination) {
         gameObject.name = "UILine";
-        _rectTransform = GetComponent<RectTransform>();
 
         Vector2 direction = destination - origin;
 

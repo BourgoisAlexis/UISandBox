@@ -3,10 +3,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class UIRadialMenu : UIElement {
-    private const float ANIM_DURATION = 0.15f;
-    private const Ease ANIM_EASE = Ease.InOutCirc;
-
-    private RectTransform _rectTransform;
     private RectTransform[] _elements;
     private float _angle;
     private float _distance;
@@ -19,7 +15,6 @@ public class UIRadialMenu : UIElement {
         _angle = angle;
         _distance = distance;
         _randomize = randomize;
-        _rectTransform = GetComponent<RectTransform>();
 
         await ShowElements();
     }

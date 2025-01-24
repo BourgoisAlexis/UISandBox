@@ -4,46 +4,37 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UITrail : UIElement {
-    private const float ANIM_DURATION = 0.2f;
-    private const Ease ANIM_EASE = Ease.InOutCirc;
-
+    private GameObject _go;
     private RectTransform _rect;
     private Image _image;
 
-    private GameObject _trail;
-    private RectTransform _trailRect;
-    private Image _trailImage;
-
 
     public void Init() {
-        _rect = GetComponent<RectTransform>();
-        _image = GetComponent<Image>();
+        _go = new GameObject();
+        _rect = _go.AddComponent<RectTransform>();
+        _image = _go.AddComponent<Image>();
 
-        _trail = new GameObject();
-        _trail.name = $"{gameObject.name}_trail";
+        _go.name = $"{gameObject.name}_trail";
 
-        _trailRect = _trail.AddComponent<RectTransform>();
-        _trailImage = _trail.AddComponent<Image>();
-
-        _trailRect.SetParent(transform.parent);
-        _trailRect.SetSiblingIndex(_rect.GetSiblingIndex());
-        _trail.SetActive(false);
+        _rect.SetParent(transform.parent);
+        _rect.SetSiblingIndex(_rectTransform.GetSiblingIndex());
+        _go.SetActive(false);
     }
 
     public async Task Move(Vector2 destination, bool local) {
-        _trail.SetActive(true);
-        _trailRect.localPosition = _rect.localPosition;
-        _trailRect.localScale = Vector2.one;
-        _trailRect.sizeDelta = _rect.sizeDelta;
+        _go.SetActive(true);
+        _rect.localPosition = _rectTransform.localPosition;
+        _rect.localScale = Vector2.one;
+        _rect.sizeDelta = _rectTransform.sizeDelta;
 
-        _trailImage.color = _uiStyle.Light;
-        _trailImage.sprite = _image.sprite;
-        _trailImage.type = _image.type;
+        _image.color = _uiStyle.Light;
+        _image.sprite = _background.sprite;
+        _image.type = _background.type;
 
-        Task t = Anim(_rect, destination, local);
+        Task t = Anim(_rectTransform, destination, local);
         await Task.Delay(Mathf.RoundToInt(ANIM_DURATION / 4 * 1000));
-        await Anim(_trailRect, destination, local);
-        _trail.SetActive(false);
+        await Anim(_rect, destination, local);
+        _go.SetActive(false);
     }
 
     private async Task Anim(RectTransform rect, Vector2 destination, bool local) {

@@ -3,21 +3,24 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class UILayout : UIElement {
-    private const float ANIM_DURATION = 0.15f;
-    private const Ease ANIM_EASE = Ease.InOutCirc;
-
-    private RectTransform _rectTransform;
     private RectTransform[] _elements;
-    private float _margin;
+    private Vector2 _margin;
     private bool _randomize;
 
 
-    public async Task Init(RectTransform[] elements, float margin, bool randomize = false) {
+    public override void SetUIStyle(UIStyle uiStyle) {
+        base.SetUIStyle(uiStyle);
+
+        _background.color = _uiStyle.BackgroundColor;
+        _background.sprite = _uiStyle.Sprite;
+        _background.type = _uiStyle.ImageType;
+    }
+
+    public async Task Init(RectTransform[] elements, Vector2 margin, bool randomize = false) {
         gameObject.name = "UILayout";
         _elements = elements == null ? new RectTransform[0] : elements;
         _margin = margin;
         _randomize = randomize;
-        _rectTransform = GetComponent<RectTransform>();
 
         Vector2 size = await SetSize();
         await Task.Delay(Mathf.RoundToInt(ANIM_DURATION * 1000));
@@ -25,12 +28,12 @@ public class UILayout : UIElement {
     }
 
     private async Task<Vector2> SetSize() {
-        float height = _margin;
+        float height = _margin.y;
         float width = 50;
 
         foreach (RectTransform element in _elements) {
             height += element.rect.height;
-            height += _margin;
+            height += _margin.y;
         }
 
         foreach (RectTransform element in _elements) {
@@ -39,7 +42,7 @@ public class UILayout : UIElement {
                 width = w;
         }
 
-        width += _margin * 2;
+        width += _margin.x * 2;
 
         Vector2 size = new Vector2(width, height);
 
@@ -50,7 +53,7 @@ public class UILayout : UIElement {
     }
 
     private async Task ShowElements(Vector2 parentSize) {
-        float pos = -parentSize.y / 2 + _margin;
+        float pos = -parentSize.y / 2 + _margin.y;
 
         int[] indexes = Utils.CreateRandomIntArray(_elements.Length);
         float[] delays = new float[indexes.Length];
@@ -61,7 +64,7 @@ public class UILayout : UIElement {
             rect.SetParent(_rectTransform);
             pos += rect.rect.height / 2;
             rect.localPosition = Vector2.down * pos;
-            pos += _margin;
+            pos += _margin.y;
             pos += rect.rect.height / 2;
 
             rect.gameObject.SetActive(false);

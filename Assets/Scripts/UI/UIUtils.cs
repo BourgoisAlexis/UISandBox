@@ -19,20 +19,17 @@ public static class UIUtils {
     public static async Task<UILine> GenerateUILine(RectTransform parent, UIStyle uiStyle, int siblingIndex, Vector2 origin, Vector2 destination) {
         GameObject go = GenerateUIElement(parent, siblingIndex);
         UILine line = go.AddComponent<UILine>();
-        line.SetUIStyle(uiStyle);
 
+        line.SetUIStyle(uiStyle);
         await line.Init(origin, destination);
 
         return line;
     }
 
-    public static async Task<UILayout> GenerateUILayout(RectTransform parent, UIStyle uiStyle, int siblingIndex, RectTransform[] elements, float margin) {
+    public static async Task<UILayout> GenerateUILayout(RectTransform parent, UIStyle uiStyle, int siblingIndex, RectTransform[] elements, Vector2 margin) {
         GameObject go = GenerateUIElement(parent, siblingIndex);
+        go.AddComponent<Image>();
         UILayout layout = go.AddComponent<UILayout>();
-        Image image = layout.gameObject.AddComponent<Image>();
-        image.color = uiStyle.MainColor;
-        image.sprite = uiStyle.Sprite;
-        image.type = uiStyle.ImageType;
 
         layout.SetUIStyle(uiStyle);
         await layout.Init(elements, margin);

@@ -1,16 +1,22 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using DG.Tweening;
 
-public class UIButton : UIElement, IInteractable {
+public class UIToggle : UIElement, IInteractable {
     #region Variables
-    public UnityEvent OnClick;
+    public UnityEvent<bool> OnClick;
 
+    private bool _value;
     private Color _default => _uiStyle.MainColor;
     private Color _hovered => _uiStyle.Light;
     #endregion
 
+
+    protected override void OnEnable() {
+        base.OnEnable();
+        _icon.transform.localScale = Vector2.one * (_value ? 1 : 0);
+    }
 
     public override void SetUIStyle(UIStyle uiStyle) {
         base.SetUIStyle(uiStyle);
@@ -42,6 +48,9 @@ public class UIButton : UIElement, IInteractable {
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        OnClick?.Invoke();
+        _value = !_value;
+        _icon.transform.DOScale(_value ? 1 : 0, ANIM_DURATION / 2).SetEase(ANIM_EASE);
+        OnClick?.Invoke(_value);
+        OnPointerEnter(null);
     }
 }
