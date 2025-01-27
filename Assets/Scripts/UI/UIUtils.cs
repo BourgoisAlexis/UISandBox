@@ -64,4 +64,15 @@ public static class UIUtils {
 
         return _dummy.localPosition;
     }
+
+
+    //Extension methods
+    public static Color SetAlpha(this Color color, float alpha) {
+        color.a = alpha;
+        return color;
+    }
+
+    public static Color GreyOut(this Color color) {
+        return color * Color.grey;
+    }
 }

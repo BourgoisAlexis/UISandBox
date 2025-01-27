@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class UIElement : MonoBehaviour {
     protected const float ANIM_DURATION = 0.15f;
-    protected const Ease ANIM_EASE = Ease.InOutCubic;
+    protected const Ease ANIM_EASE = Ease.InOutSine;
 
     [SerializeField] protected UIStyle _uiStyle;
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIView : UIElement {
     #region Variables
-    [SerializeField] protected UIButton _backButton;
+    [SerializeField] protected UIButtonSimple _backButton;
 
     private bool _initialized;
     private Vector2 _sizeDelta;
@@ -14,6 +14,7 @@ public class UIView : UIElement {
     protected override void Awake() {
         base.Awake();
         _sizeDelta = _rectTransform.sizeDelta;
+        gameObject.AddComponent<RectMask2D>();
     }
 
     protected virtual void Init(params object[] parameters) {
@@ -29,16 +30,22 @@ public class UIView : UIElement {
         _background.color = _uiStyle.Dark;
     }
 
-    public virtual async Task Show(params object[] parameters) {
+    public virtual async Task Show(bool instant, params object[] parameters) {
+        gameObject.SetActive(true);
+
         if (!_initialized)
             Init(parameters);
 
-        await _rectTransform.DOSizeDelta(new Vector2(_sizeDelta.x, _sizeDelta.y), ANIM_DURATION).SetEase(ANIM_EASE).AsyncWaitForCompletion();
+        float duration = instant ? 0 : ANIM_DURATION;
+        await _rectTransform.DOSizeDelta(new Vector2(_sizeDelta.x, _sizeDelta.y), duration).SetEase(ANIM_EASE).AsyncWaitForCompletion();
     }
 
-    public virtual async Task Hide() {
+    public virtual async Task Hide(bool instant) {
         float height = -_rectTransform.rect.height + _rectTransform.sizeDelta.y;
-        await _rectTransform.DOSizeDelta(new Vector2(_sizeDelta.x, height), ANIM_DURATION).SetEase(ANIM_EASE).AsyncWaitForCompletion();
+        float duration = instant ? 0 : ANIM_DURATION;
+        await _rectTransform.DOSizeDelta(new Vector2(_sizeDelta.x, height), duration).SetEase(ANIM_EASE).AsyncWaitForCompletion();
+
+        gameObject.SetActive(false);
     }
 
     public virtual void Back() {

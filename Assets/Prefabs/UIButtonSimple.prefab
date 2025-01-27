@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1278983497765509525}
   - component: {fileID: 5054149454260554753}
   m_Layer: 5
-  m_Name: UIButton_1
+  m_Name: UIButtonSimple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2958808979951637477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9a380fd3cf7cc3498aaf348ab4546e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 88b015a428878e24cb48dbc5f81b4749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _uiStyle: {fileID: 11400000, guid: 82d70803bb7278a41aa362f3b362918e, type: 2}
